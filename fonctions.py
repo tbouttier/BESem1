@@ -1,1 +1,2 @@
-afficherCartes()
+
+def afficherCartes()

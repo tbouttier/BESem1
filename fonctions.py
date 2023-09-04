@@ -5,6 +5,7 @@ def distribCards():
     """
     Crée une liste des valeurs des cartes de 1 à 32
     Mélange et distribue les cartes aux joueurs
+    :return tuple: 2 listes main_J1, main_J2
     """
     cards = []
     for value in range(1, 33):
@@ -35,9 +36,11 @@ def getCardImg(fic: str, valeur: int):
 
     return imgName
 
-def getCardColor(fic: str,valeur: int):
+def getCardColor(fic: str,valeur: str):
     """
     Renvoi la couleur d'une carte en fonction de sa valeur
+    :param valeur str : Utilise la valeur de la carte pour rechercher la couleur (doit être convertie en str)
+    :return str couleur: Renvoit la couleur de la carte entrée
     """
     with open(fic, 'r') as fichier:
         cardDict = csv.DictReader(fichier, delimiter=',')
@@ -51,11 +54,24 @@ def getCardColor(fic: str,valeur: int):
 def startingPlayer():
     """
     Determine le joueur commençant la partie
+    :return int : Renvoit le numéro du joueur d'atout 
     """
-    joueur = random.randint(0,1)
-
+    joueur = random.randint(1,2)
     return joueur
 
-#TODO Savegame
-def saveGame(save_file,joueur,mainJ1,mainJ2,scores,nb_pli):
-    open(save_file,'w')
+def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,scores : int,nb_pli: int):
+    """
+    Sauvegarde les données de la parties en cours dans un fichier
+    """
+    save_file = open(save_fic,'w')
+    save_data = [joueur,atout,mainJ1,mainJ2,scores,nb_pli]
+    save_file.write(str(save_data))
+    save_file.close()
+
+#TODO Pour Yann : loadGame()
+def loadGame(save_fic):
+    load_file = open(save_fic,'r')
+    for line in load_file:
+        game_data = list(line)
+    
+    return game_data

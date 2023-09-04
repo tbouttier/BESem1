@@ -1,17 +1,24 @@
 import csv
 import random
 
-
-def createCards():
+def distribCards():
     """
-    Crée une liste de valeur des cartes de 1 à 32
-    :return: list cards
+    Crée une liste des valeurs des cartes de 1 à 32
+    Mélange et distribue les cartes aux joueurs
     """
     cards = []
-    for value in range(1, 32):
+    for value in range(1, 33):
         cards.append(value)
-    return cards
-
+    
+    random.shuffle(cards)
+    player1 = []
+    player2 = []
+    for i in range(0,32):
+        if i%2==0:
+            player2.append(cards[i])
+        else:
+            player1.append(cards[i])
+    return player1,player2
 
 def getCardImg(fic: str, valeur: int):
     """
@@ -28,9 +35,27 @@ def getCardImg(fic: str, valeur: int):
 
     return imgName
 
+def getCardColor(fic: str,valeur: int):
+    """
+    Renvoi la couleur d'une carte en fonction de sa valeur
+    """
+    with open(fic, 'r') as fichier:
+        cardDict = csv.DictReader(fichier, delimiter=',')
+        for card in cardDict:
+            if card['Valeur'] == valeur:
+                couleur: str = card.get('Couleur')
 
-def distribCards(cards : list):
+    return couleur
+
+
+def startingPlayer():
     """
-    Mélange et distribue les cartes aux joueurs
+    Determine le joueur commençant la partie
     """
-    random.shuffle(cards)
+    joueur = random.randint(0,1)
+
+    return joueur
+
+#TODO Savegame
+def saveGame(save_file,joueur,mainJ1,mainJ2,scores,nb_pli):
+    open(save_file,'w')

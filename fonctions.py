@@ -1,6 +1,11 @@
 import csv
 import random
 
+def checkBelote(main):
+    """
+    Vérifie si le joueur détient une belote dans sa main
+    """
+
 def distribCards():
     """
     Crée une liste des valeurs des cartes de 1 à 32
@@ -13,13 +18,27 @@ def distribCards():
     
     random.shuffle(cards)
     player1 = []
+    vis1 = []
+    cache1 = []
     player2 = []
+    vis2 = []
+    cache2 =[]
+    
     for i in range(0,32):
         if i%2==0:
             player2.append(cards[i])
         else:
             player1.append(cards[i])
-    return player1,player2
+
+    for vis_card in range(8,16):
+        vis1.append(player1[vis_card])
+        vis2.append(player2[vis_card])
+
+    for hid_card in range(0,8):
+        cache1.append(player1[hid_card])
+        cache2.append(player2[hid_card])
+
+    return vis1,vis2,cache1,cache2
 
 def getCardImg(fic: str, valeur: int):
     """
@@ -56,7 +75,7 @@ def startingPlayer():
     Determine le joueur commençant la partie
     :return int : Renvoit le numéro du joueur d'atout 
     """
-    joueur = random.randint(1,2)
+    joueur = random.randint(0,1)
     return joueur
 
 def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,scores : int,nb_pli: int):

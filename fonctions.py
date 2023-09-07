@@ -1,5 +1,6 @@
 import csv
 import random
+import ast
 
 def checkBelote(main):
     """
@@ -90,7 +91,5 @@ def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,sco
 #TODO Pour Yann : loadGame()
 def loadGame(save_fic):
     load_file = open(save_fic,'r')
-    for line in load_file:
-        game_data = list(line)
-    
+    game_data = ast.literal_eval(load_file.read())
     return game_data

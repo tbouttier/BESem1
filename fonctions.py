@@ -90,6 +90,4 @@ def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,sco
 def loadGame(save_fic):
     load_file = open(save_fic,'r')
     game_data = ast.literal_eval(load_file.read())
-    print(game_data[5])
-
     return game_data

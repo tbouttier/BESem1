@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+
+        {% include ('header.html') %}
+
+    <main id="main"></main>
+
+
+
+<!-- ======= Tapis de cartes (tableau) ======= -->
+
+
+    <table class="text-center table">
+        <thead>
+            <tr>
+              <th scope="col">Joueur 1</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col">Tapis</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col">Joueur 2</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!--=== Corps du tableau ===-->
+
+            <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
+
+            {%for card in cards_j1%} 
+            <tr>
+                <td>{{card}}</td>
+            </tr>
+            {%endfor%}       
+            
+            {%for card in cards_j2%} 
+            <tr>
+                <td>{{card}}</td>
+            </tr>
+            {%endfor%}  
+
+    </table>
+    </main><!-- End #main -->
+
+    {% include 'footer.html' %}
+
+    </tbody>

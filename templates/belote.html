@@ -28,11 +28,14 @@
 
             <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
 
-            <tr>
+            
             {%for line in donne%} 
-                <td>{{donne}}</td>
-            {%endfor%}       
+            <tr>
+                {%for card in line%}
+                <td>{{card}}</td>
+                {%endfor%}
             </tr>
+            {%endfor%}       
           </tbody>
     </table>
    

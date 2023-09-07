@@ -21,8 +21,8 @@ st_pl=fonctions.startingPlayer()
 
 print(st_pl)
 
-print(fonctions.getCardColor(fic,str(donne[st_pl][-1])))
+atout = fonctions.getCardColor(fic,str(donne[st_pl][-1]))
 
-fonctions.saveGame('gameData',None,atout,main_P1,main_P2,0,1)
+fonctions.saveGame('gameData',None,atout,mainJ1,mainJ2,0,1)
 
 print(fonctions.loadGame('gameData'))

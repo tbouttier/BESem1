@@ -1,5 +1,4 @@
-import csv
-import random
+import csv, random, ast
 
 def checkBelote(main):
     """
@@ -80,7 +79,7 @@ def startingPlayer():
 
 def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,scores : int,nb_pli: int):
     """
-    Sauvegarde les données de la parties en cours dans un fichier
+    Sauvegarde les données de la parties en cours dans un fichier gameData
     """
     save_file = open(save_fic,'w')
     save_data = [joueur,atout,mainJ1,mainJ2,scores,nb_pli]
@@ -90,7 +89,7 @@ def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,sco
 #TODO Pour Yann : loadGame()
 def loadGame(save_fic):
     load_file = open(save_fic,'r')
-    for line in load_file:
-        game_data = list(line)
-    
+    game_data = ast.literal_eval(load_file.read())
+    print(game_data[5])
+
     return game_data

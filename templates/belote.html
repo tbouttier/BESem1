@@ -8,11 +8,14 @@
     </head>
 <body>
 
-    <!-- ======= Tapis de cartes (tableau) ======= -->
+{% include ('header.html') %}
 
-<div class="container">
+<!-- ======= Tapis de cartes (tableau) ======= -->
+           <!-- TODO aller chercher la carte atout définie dans la fonction "run/atout" -->
+
+<div class="container" style="background-image: url('/static/card/!!!#atout!!!');"></div>
     <table class="text-center table table-bordered">
-        <!-- <thead>
+        <!--<thead>
             <tr>
               <th scope="col">Joueur 1</th>
               <th scope="col"></th>
@@ -37,5 +40,5 @@
             {%endfor%}
         </tbody>
     </table>
-</div>
-    </main><!-- End #main -->
+  </div>
+</body>

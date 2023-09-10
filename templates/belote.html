@@ -1,50 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Item List</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </head>
+<body>
 
-    <body>
+    <!-- ======= Tapis de cartes (tableau) ======= -->
 
-        {% include ('header.html') %}
-
-    <main id="main"></main>
-
-
-
-<!-- ======= Tapis de cartes (tableau) ======= -->
-
-
-    <table class="text-center table">
-        <thead>
+<div class="container">
+    <table class="text-center table table-bordered">
+        <!-- <thead>
             <tr>
               <th scope="col">Joueur 1</th>
               <th scope="col"></th>
-              <th scope="col"></th>
               <th scope="col">Tapis</th>
-              <th scope="col"></th>
               <th scope="col"></th>
               <th scope="col">Joueur 2</th>
             </tr>
-          </thead>
-          <tbody>
+          </thead>-->
+        <tbody>
 
             <!--=== Corps du tableau ===-->
 
             <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
 
-            {%for card in cards_j1%} 
-            <tr>
-                <td>{{card}}</td>
-            </tr>
-            {%endfor%}       
-            
-            {%for card in cards_j2%} 
-            <tr>
-                <td>{{card}}</td>
-            </tr>
-            {%endfor%}  
 
+            {%for row in donne%}
+            <tr scope="row" class="pt-3">
+                {%for card in row%}
+                <td><img src="static/cards/{{ card }}" class="" alt=""></td>
+                {%endfor%}
+            </tr>
+            {%endfor%}
+        </tbody>
     </table>
+</div>
     </main><!-- End #main -->
-
-    {% include 'footer.html' %}
-
-    </tbody>

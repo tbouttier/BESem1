@@ -11,7 +11,7 @@ items = [
 
 @app.route('/')
 def item_list():
-    return render_template('index.html', items=items)
+    return render_template('disp_test.html', items=items)
 
 if __name__ == '__main__':
     app.run(debug=True)

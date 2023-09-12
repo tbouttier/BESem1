@@ -10,32 +10,32 @@
 
     <!-- ======= Tapis de cartes (tableau) ======= -->
 
-<div class="container">
-    <table class="text-center table table-bordered">
-        <!-- <thead>
-            <tr>
-              <th scope="col">Joueur 1</th>
-              <th scope="col"></th>
-              <th scope="col">Tapis</th>
-              <th scope="col"></th>
-              <th scope="col">Joueur 2</th>
-            </tr>
-          </thead>-->
-        <tbody>
+    <div class="container">
+        <table class="text-center table table-bordered">
+            <!-- <thead>
+                <tr>
+                <th scope="col">Joueur 1</th>
+                <th scope="col"></th>
+                <th scope="col">Tapis</th>
+                <th scope="col"></th>
+                <th scope="col">Joueur 2</th>
+                </tr>
+            </thead>-->
+            <tbody>
 
-            <!--=== Corps du tableau ===-->
+                <!--=== Corps du tableau ===-->
 
-            <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
+                <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
 
 
-            {%for row in donne%}
-            <tr scope="row" class="pt-3">
-                {%for card in row%}
-                <td><img src="static/cards/{{ card }}" class="" alt=""></td>
+                {%for row in donne%}
+                <tr scope="row" class="pt-3">
+                    {%for card in row%}
+                    <td><img src="static/cards/{{ card }}" class="" alt=""></td>
+                    {%endfor%}
+                </tr>
                 {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 </div>
-    </main><!-- End #main -->
+</body>

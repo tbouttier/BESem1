@@ -1,15 +1,31 @@
 import csv, random, ast
+from enum import IntEnum
+
+
 
 def checkBelote(main):
     """
     Vérifie si le joueur détient une belote dans sa main
     """
 
+def cardPlayed(joueur, donne, carte_jouee):
+    """Joue la carte choisie par le joueur
+
+    Args:
+        joueur (int): numéro du joueur
+        donne (_type_): 
+        carte_jouee (_type_): _description_
+    """
+        
+    return
+
 def distribCards():
     """
     Crée une liste des valeurs des cartes de 1 à 32
     Mélange et distribue les cartes aux joueurs
-    :return tuple: 2 listes main_J1, main_J2
+    
+    
+    :return (tuple): 4 listes main_J1, main_J2, cacheJ1, cacheJ2
     """
     cards = []
     for value in range(1, 33):
@@ -72,8 +88,8 @@ def getCardImg(fic: str, valeur: str):
 def getCardColor(fic: str,valeur: str):
     """
     Renvoi la couleur d'une carte en fonction de sa valeur
-    :param valeur str : Utilise la valeur de la carte pour rechercher la couleur (doit être convertie en str)
-    :return str couleur: Renvoit la couleur de la carte entrée
+    :param valeur (str) : Utilise la valeur de la carte pour rechercher la couleur (doit être convertie en str)
+    :return couleur (str): Renvoit la couleur de la carte entrée
     """
     with open(fic, 'r') as fichier:
         cardDict = csv.DictReader(fichier, delimiter=',')
@@ -87,7 +103,7 @@ def getCardColor(fic: str,valeur: str):
 def startingPlayer():
     """
     Determine le joueur commençant la partie
-    :return int : Renvoit le numéro du joueur d'atout 
+    :return int : Renvoit le numéro du joueur commençant la partie
     """
     joueur = random.randint(0,1)
     return joueur

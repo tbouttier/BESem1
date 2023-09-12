@@ -39,7 +39,22 @@ def distribCards():
 
     return vis1,vis2,cache1,cache2
 
-def getCardImg(fic: str, valeur: int):
+def getCardValue(fic,img_name):
+    """
+    Renvoi la valeur de la carte en fonction du filename de l'image
+    :param str fic: fichier .csv contenant les valeurs des cartes et les noms des images
+    :param string img_name: Nom du fichier img de la carte recherchée
+    :return str valeur
+    """
+    with open(fic, 'r') as fichier:
+        cardDict = csv.DictReader(fichier, delimiter=',')
+        for card in cardDict:
+            if card['file'] == img_name:
+                valeur: str = card.get('Valeur')
+
+    return valeur
+
+def getCardImg(fic: str, valeur: str):
     """
     Renvoi le filename de l'image en fonction de la valeur de la carte
     :param str fic: fichier .csv contenant les valeurs des cartes et les noms des images

@@ -11,25 +11,92 @@
 {% include ('header.html') %}
 
 <!-- ======= Tapis de cartes (tableau) ======= -->
-           <!-- TODO aller chercher la carte atout définie dans la fonction "run/atout" -->
+            
+<div class="container" style="background-image: url('/static/card/!!!#atout!!!');">
 
-<div class="container" style="background-image: url('/static/card/!!!#atout!!!');"></div>
     <table class="text-center table table-bordered">
-        <!--<thead>
+      
+        <thead>
             <tr>
               <th scope="col">Joueur 1</th>
-              <th scope="col"></th>
-              <th scope="col">Tapis</th>
-              <th scope="col"></th>
-              <th scope="col">Joueur 2</th>
+              
+              <td>
+                {%if atout == "Pique" %}
+                  <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+                {%elif atout == "Carreau"%}
+                  <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+                {%elif atout == "Coeur"%}
+                  <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+                {%elif atout == "Trefle"%}
+                  <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+                {%endif%}</td>
+              <td>
+                {%if atout == "Pique" %}
+                  <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+                {%elif atout == "Carreau"%}
+                  <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+                {%elif atout == "Coeur"%}
+                  <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+                {%elif atout == "Trefle"%}
+                  <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+                {%endif%}</td>
+              <td>
+                {%if atout == "Pique" %}
+                  <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+                {%elif atout == "Carreau"%}
+                  <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+                {%elif atout == "Coeur"%}
+                  <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+                {%elif atout == "Trefle"%}
+                  <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+                {%endif%}</td>
+              <td>
+                {%if atout == "Pique" %}
+                  <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+                {%elif atout == "Carreau"%}
+                  <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+                {%elif atout == "Coeur"%}
+                  <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+                {%elif atout == "Trefle"%}
+                  <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+                {%endif%}</td>
+              <td>
+                {%if atout == "Pique" %}
+                  <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+                {%elif atout == "Carreau"%}
+                  <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+                {%elif atout == "Coeur"%}
+                  <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+                {%elif atout == "Trefle"%}
+                  <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+                {%endif%}</td>
+              <td>
+                {%if atout == "Pique" %}
+                  <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+                {%elif atout == "Carreau"%}
+                  <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+                {%elif atout == "Coeur"%}
+                  <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+                {%elif atout == "Trefle"%}
+                  <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+                {%endif%}</td>
+              <td>
+                {%if atout == "Pique" %}
+                  <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+                {%elif atout == "Carreau"%}
+                  <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+                {%elif atout == "Coeur"%}
+                  <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+                {%elif atout == "Trefle"%}
+                  <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+                {%endif%}</td>
+
             </tr>
-          </thead>-->
+          </thead>
+
         <tbody>
 
             <!--=== Corps du tableau ===-->
-
-            <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
-
 
             {%for row in donne%}
             <tr scope="row" class="pt-3">
@@ -39,6 +106,82 @@
             </tr>
             {%endfor%}
         </tbody>
+
+        <tfoot>
+          <tr>
+            <th scope="col">Joueur 2</th>
+          
+            <td>
+              {%if atout == "Pique" %}
+               <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+              {%elif atout == "Carreau"%}
+               <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+              {%elif atout == "Coeur"%}
+                <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+              {%elif atout == "Trefle"%}
+               <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+            {%endif%}</td>
+            <td>
+              {%if atout == "Pique" %}
+                <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+              {%elif atout == "Carreau"%}
+                <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+              {%elif atout == "Coeur"%}
+                <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+              {%elif atout == "Trefle"%}
+                <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+              {%endif%}</td>
+            <td>
+              {%if atout == "Pique" %}
+                <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+              {%elif atout == "Carreau"%}
+                <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+              {%elif atout == "Coeur"%}
+                <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+              {%elif atout == "Trefle"%}
+                <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+              {%endif%}</td>
+            <td>
+              {%if atout == "Pique" %}
+                <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+              {%elif atout == "Carreau"%}
+                <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+              {%elif atout == "Coeur"%}
+                <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+              {%elif atout == "Trefle"%}
+                <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+              {%endif%}</td>
+            <td>
+              {%if atout == "Pique" %}
+                <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+              {%elif atout == "Carreau"%}
+                <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+              {%elif atout == "Coeur"%}
+                <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+              {%elif atout == "Trefle"%}
+                <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+              {%endif%}</td>
+            <td>
+              {%if atout == "Pique" %}
+                <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+              {%elif atout == "Carreau"%}
+                <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+              {%elif atout == "Coeur"%}
+                <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+              {%elif atout == "Trefle"%}
+                <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+              {%endif%}</td>
+            <td>
+              {%if atout == "Pique" %}
+                <img src="static/cards/Pique.png" style="width:90px;height:110px;">
+              {%elif atout == "Carreau"%}
+                <img src="static/cards/Carreau.png" style="width:90px;height:110px;">
+              {%elif atout == "Coeur"%}
+                <img src="static/cards/Coeur.png" style="width:90px;height:110px;">
+              {%elif atout == "Trefle"%}
+                <img src="static/cards/Trefle.png" style="width:90px;height:110px;">
+              {%endif%}</td>
+          </tfoot>
     </table>
   </div>
 </body>

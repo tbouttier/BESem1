@@ -35,3 +35,7 @@ for line in donne:
 
 for i in cards:
     print(i)
+
+print(fonctions.cards_points(fic,"Carreau",str(4)))
+
+print('4' == '2')

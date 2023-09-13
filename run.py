@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session
 import fonctions
+import random
 
 card_file = 'static/cards/cards.csv'
 
@@ -31,8 +32,8 @@ donneIMG = (mainJ1_IMG, cacheJ1_IMG,mt_line,cacheJ2_IMG,mainJ2_IMG)
 def index():
     #for i in range(0,7):
         #table_liste = [mainJ1_IMG[i],cacheJ1_IMG[i],None,cacheJ2_IMG[i],mainJ2_IMG[i]]
-
-    return render_template('belote.html', donne = donneIMG)
+    couleur=fonctions.getCardColor(card_file, str(random.randint(1, 32)))
+    return render_template('belote.html', donne = donneIMG, atout=couleur)
 
 
 if __name__=='__main__':

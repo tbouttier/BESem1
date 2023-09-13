@@ -1,23 +1,49 @@
 import csv, random, ast
 from enum import IntEnum
 
+def init_game():
 
+    card_file ='static/cards/cards.csv'
+
+    donne = distribCards()
+    mainJ1 = []
+    mainJ2 = []
+    cacheJ1 = []
+    cacheJ2 = []
+
+    for card in donne[0]:
+        mainJ1.append({'valeur':card, 'image':getCardImg(card_file, str(card))})
+    for card in donne[1]:
+        mainJ2.append(({'valeur':card, 'image':getCardImg(card_file, str(card))}))
+    for card in donne[2]:
+        cacheJ1.append({'valeur':card, 'image':getCardImg(card_file, str(card))})
+    for card in donne[3]:
+        cacheJ2.append({'valeur':card, 'image':getCardImg(card_file, str(card))})
+
+    return mainJ1,mainJ2,cacheJ1,cacheJ2
 
 def checkBelote(main):
     """
     Vérifie si le joueur détient une belote dans sa main
     """
 
-def cardPlayed(joueur, donne, carte_jouee):
+def cardPlayed(tour,mainJoueur,cacheJoueur,jeu,carte_jouee):
     """Joue la carte choisie par le joueur
 
     Args:
         joueur (int): numéro du joueur
         donne (_type_): 
-        carte_jouee (_type_): _description_
+        carte_jouee (_type_): ImgName de la carte jouée
     """
-        
-    return
+    if type(carte_jouee) != int:
+        raise TypeError(f"carte_jouee doit être un int pas {type(carte_jouee)}")
+
+    jeu[carte_jouee] = mainJoueur[carte_jouee]
+    mainJoueur[carte_jouee] = cacheJoueur[carte_jouee]
+    cacheJoueur[carte_jouee] = 'carte_0.png'
+
+    return tour+1
+
 
 def distribCards():
     """

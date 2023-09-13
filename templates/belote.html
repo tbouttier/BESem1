@@ -29,11 +29,30 @@
 
 
                 {%for row in donne%}
+                {%if (loop.index == 2) or (loop.index == 4) %}
                 <tr scope="row" class="pt-3">
                     {%for card in row%}
-                    <td><img src="static/cards/{{ card }}" class="" alt=""></td>
+                    <td><img src="static/cards/dos.jpg" class="" alt=""></td>
                     {%endfor%}
                 </tr>
+                {%elif (loop.index == 3) %}
+                <tr scope="row" class="pt-3">
+                    {%for card in row%}
+                    <td><img src="static/cards/carte_0.png" class="" alt=""></td>
+                    {%endfor%}
+                </tr>
+                {%else%}
+                <tr scope="row" class="pt-3">
+                    {%for card in row%}
+                        <td>
+                            <a href="{{loop.index}}">
+                            <img src="static/cards/{{ card['image'] }}" class="" alt="">
+                            </a>
+                        </td>
+                    </a>
+                    {%endfor%}
+                </tr>
+                {%endif%}
                 {%endfor%}
             </tbody>
         </table>

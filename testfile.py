@@ -29,9 +29,19 @@ st_pl=fonctions.startingPlayer()
 
 cards = []
 
-for line in donne:
+"""for line in donne:
     for card in line:
-        cards.append(fonctions.getCardImg(fic,str(card)))
+        cards.append(fonctions.getCardImg(fic,str(card)))"""
 
-for i in cards:
-    print(i)
+jeu = ["carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png"]
+
+
+print(mainJ1)
+print(cacheJ1)
+print(jeu)
+
+fonctions.cardPlayed(0,mainJ1,cacheJ1,jeu,'2')
+
+print(mainJ1)
+print(cacheJ1)
+print(jeu)

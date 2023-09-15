@@ -2,6 +2,11 @@ import csv, random, ast
 from enum import IntEnum
 
 def init_game():
+    """
+    Initialise une nouvelle partie
+
+    :return mainJ1,mainJ2,cache1,cache2 (tuple) : Les mains des joueurs et les cartes cachés
+    """
 
     card_file ='static/cards/cards.csv'
 

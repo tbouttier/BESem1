@@ -148,8 +148,33 @@ def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,sco
     save_file.write(str(save_data))
     save_file.close()
 
-#TODO Pour Yann : loadGame()
 def loadGame(save_fic):
     load_file = open(save_fic,'r')
     game_data = ast.literal_eval(load_file.read())
     return game_data
+
+def cards_points (couleur):
+    Couleur = []
+    if couleur == Couleur :
+        AS=11
+        Roi=4
+        Dame=3
+        valet=20
+        Dix=10
+        Neuf=14
+        Huit=0
+        Sept=0
+    else
+        As=11
+        Roi=4
+        Dame=3
+        Valet=2
+        Dix=10
+        Neuf=0
+        Huit=0
+        Sept=0
+return :...
+
+
+    for value in range(1, 33):
+        cards.append(value)

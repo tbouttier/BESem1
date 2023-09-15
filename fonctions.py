@@ -28,26 +28,20 @@ def init_game():
     return mainJ1,mainJ2,cacheJ1,cacheJ2
 
 def checkBelote(main):
-    """
+    """ donneIMG = (mainJ1_IMG, cacheJ1_IMG,tapis1,tapis2,cacheJ2_IMG,mainJ2_IMG)
     Vérifie si le joueur détient une belote dans sa main
     """
 
-def cardPlayed(tour,mainJoueur,cacheJoueur,jeu,carte_jouee):
-    """Joue la carte choisie par le joueur
-
-    Args:
-        joueur (int): numéro du joueur
-        donne (_type_): 
-        carte_jouee (_type_): ImgName de la carte jouée
+def cardPlayed(tour,mainJoueur,cacheJoueur,jeu,carte_jouee,indice_carte):
+    """
     """
     if type(carte_jouee) != int:
         raise TypeError(f"carte_jouee doit être un int pas {type(carte_jouee)}")
 
-    jeu[carte_jouee] = mainJoueur[carte_jouee]
-    mainJoueur[carte_jouee] = cacheJoueur[carte_jouee]
-    cacheJoueur[carte_jouee] = 'carte_0.png'
+    jeu[indice_carte-1] = mainJoueur[indice_carte-1]
+    mainJoueur[indice_carte-1] = cacheJoueur[indice_carte-1]
+    cacheJoueur[indice_carte-1] = 'carte_0.png'
 
-    return tour+1
 
 
 def distribCards():
@@ -97,7 +91,7 @@ def getCardValue(fic,img_name):
         cardDict = csv.DictReader(fichier, delimiter=',')
         for card in cardDict:
             if card['file'] == img_name:
-                valeur: str = card.get('Valeur')
+                valeur = card.get('Valeur')
 
     return valeur
 

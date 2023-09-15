@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 import fonctions
 import random
 
@@ -26,10 +26,14 @@ def index():
 @app.route('/game')
 def game():
 
-    donneIMG = (mainJ1_IMG, cacheJ1_IMG,mt_line,cacheJ2_IMG,mainJ2_IMG)
     return render_template('belote.html', donne = donneIMG)
 
-
+@app.route('/j1/<card>')
+def jeu_j1(card):
+    fonctions.cardPlayed(0,donne[0],donne[2],tapis1,donne[0][int(card)-1]['valeur'],int(card))
+    print(donne[0])
+    return redirect('/game')
+    
 
 if __name__=='__main__':
     app.secret_key = "teobubu"

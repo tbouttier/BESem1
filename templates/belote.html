@@ -113,17 +113,28 @@
                   <td><img src="static/cards/carte_0.png" class="" alt=""></td>
                   {%endfor%}
               </tr>
-              {%else%}
+              {%elif (loop.index == 1)%}
               <tr scope="row" class="pt-3">
                   {%for card in row%}
                       <td>
-                          <a href="{{loop.index}}">
+                          <a href="j1/{{loop.index}}">
                           <img src="static/cards/{{ card['image'] }}" class="" alt="">
                           </a>
                       </td>
                   </a>
                   {%endfor%}
               </tr>
+              {%elif loop.index==6%}
+              <tr scope="row" class="pt-3">
+                {%for card in row%}
+                    <td>
+                        <a href="j2/{{loop.index}}">
+                        <img src="static/cards/{{ card['image'] }}" class="" alt="">
+                        </a>
+                    </td>
+                </a>
+                {%endfor%}
+            </tr>
               {%endif%}
               {%endfor%}
             </tbody>

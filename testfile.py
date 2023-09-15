@@ -2,13 +2,18 @@ import fonctions
 
 fic = 'static/cards/cards.csv'
 
-donne = fonctions.distribCards()
+mainJ1_IMG = []
+mainJ2_IMG = []
+cacheJ1_IMG = []
+cacheJ2_IMG = []
 
-mainJ1= donne[0]
-mainJ2= donne[1]
-cacheJ1 = donne[2]
-cacheJ2 = donne[3]
+donne = fonctions.init_game()
 
+tapis1 = ["carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png"]
+tapis2 = ["carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png"]
+
+
+donneIMG = (donne[0], donne[2],tapis1,tapis2,donne[3],donne[1])
 #for card in mainJ1:
 #    print(fonctions.getCardImg(fic,str(card)))
 
@@ -27,16 +32,7 @@ st_pl=fonctions.startingPlayer()
 
 #print(fonctions.loadGame('gameData'))
 
-cards = []
+print(donne[0][2])
 
-for line in donne:
-    for card in line:
-        cards.append(fonctions.getCardImg(fic,str(card)))
-
-for i in cards:
-    print(i)
-
-print(fonctions.cards_points(fic,"Carreau",str(4)))
-
-print('4' == '2')
+#print(fonctions.getCardValue(fic,mainJ1[2]))
 

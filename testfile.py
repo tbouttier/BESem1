@@ -39,3 +39,4 @@ for i in cards:
 print(fonctions.cards_points(fic,"Carreau",str(4)))
 
 print('4' == '2')
+

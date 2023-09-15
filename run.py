@@ -4,33 +4,23 @@ import fonctions
 card_file = 'static/cards/cards.csv'
 
 app = Flask(__name__)
-mainJ1_IMG = []
-mainJ2_IMG = []
-cacheJ1_IMG = []
-cacheJ2_IMG = []
 
-donne = fonctions.distribCards()
-mainJ1= donne[0]
-mainJ2= donne[1]
-cacheJ1 = donne[2]
-cacheJ2 = donne[3]
-mt_line = ["carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png"]
+donne = fonctions.init_game()
 
-for card in mainJ1:
-        mainJ1_IMG.append(fonctions.getCardImg(card_file,str(card)))
-for card in mainJ2:
-        mainJ2_IMG.append(fonctions.getCardImg(card_file,str(card)))
-for card in cacheJ1:
-        cacheJ1_IMG.append("dos.jpg")
-for card in cacheJ2:
-    cacheJ2_IMG.append("dos.jpg")
+tapis1 = ["carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png"]
+tapis2 = ["carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png","carte_0.png"]
 
-donneIMG = (mainJ1_IMG, cacheJ1_IMG,mt_line,cacheJ2_IMG,mainJ2_IMG)
+
+donneIMG = (donne[0], donne[2],tapis1,tapis2,donne[3],donne[1])
 
 @app.route('/')
 def index():
-    #for i in range(0,7):
-        #table_liste = [mainJ1_IMG[i],cacheJ1_IMG[i],None,cacheJ2_IMG[i],mainJ2_IMG[i]]
+    
+    return render_template('index.html')
+
+@app.route('/game')
+def game():
+
 
     return render_template('belote.html', donne = donneIMG)
 

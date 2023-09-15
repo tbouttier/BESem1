@@ -10,35 +10,53 @@
 
 {% include ('header.html') %}
 
-<!-- ======= Tapis de cartes (tableau) ======= -->
-           <!-- TODO aller chercher la carte atout définie dans la fonction "run/atout" -->
 
-<div class="container" style="background-image: url('/static/card/!!!#atout!!!');"></div>
-    <table class="text-center table table-bordered">
-        <!--<thead>
-            <tr>
-              <th scope="col">Joueur 1</th>
-              <th scope="col"></th>
-              <th scope="col">Tapis</th>
-              <th scope="col"></th>
-              <th scope="col">Joueur 2</th>
-            </tr>
-          </thead>-->
-        <tbody>
+    <div class="container">
+        <table class="text-center table table-bordered">
+            <!-- <thead>
+                <tr>
+                <th scope="col">Joueur 1</th>
+                <th scope="col"></th>
+                <th scope="col">Tapis</th>
+                <th scope="col"></th>
+                <th scope="col">Joueur 2</th>
+                </tr>
+            </thead>-->
+            <tbody>
 
-            <!--=== Corps du tableau ===-->
+                <!--=== Corps du tableau ===-->
 
-            <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
+                <!-- card et cards_j1 cards_j2 à renommer ci dessous !!! -->
 
 
-            {%for row in donne%}
-            <tr scope="row" class="pt-3">
-                {%for card in row%}
-                <td><img src="static/cards/{{ card }}" class="" alt=""></td>
+                {%for row in donne%}
+                {%if (loop.index == 2) or (loop.index == 5) %}
+                <tr scope="row" class="pt-3">
+                    {%for card in row%}
+                    <td><img src="static/cards/dos.jpg" class="" alt=""></td>
+                    {%endfor%}
+                </tr>
+                {%elif (loop.index == 3) or (loop.index == 4) %}
+                <tr scope="row" class="pt-3">
+                    {%for card in row%}
+                    <td><img src="static/cards/carte_0.png" class="" alt=""></td>
+                    {%endfor%}
+                </tr>
+                {%else%}
+                <tr scope="row" class="pt-3">
+                    {%for card in row%}
+                        <td>
+                            <a href="{{loop.index}}">
+                            <img src="static/cards/{{ card['image'] }}" class="" alt="">
+                            </a>
+                        </td>
+                    </a>
+                    {%endfor%}
+                </tr>
+                {%endif%}
                 {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-  </div>
+
+            </tbody>
+        </table>
+    </div>
 </body>

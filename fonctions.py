@@ -153,28 +153,42 @@ def loadGame(save_fic):
     game_data = ast.literal_eval(load_file.read())
     return game_data
 
-def cards_points (couleur):
-    Couleur = []
-    if couleur == Couleur :
-        AS=11
-        Roi=4
-        Dame=3
-        valet=20
-        Dix=10
-        Neuf=14
-        Huit=0
-        Sept=0
-    else
-        As=11
-        Roi=4
-        Dame=3
-        Valet=2
-        Dix=10
-        Neuf=0
-        Huit=0
-        Sept=0
-return :...
+def cards_points(fic, atout, valeur):
+    Couleur=getCardColor(fic, valeur)
+    print(Couleur)
+    if Couleur == atout :
+        if valeur == ('1' or '9' or '17' or '25'):
+            points =11
+        if valeur == ('2' or '10' or '18' or '26'):
+            points =4
+        if valeur == ('3' or '11' or '19' or '27'):
+            points=3
+        if valeur == ('4' or '12' or '20' or '28'):
+            points =20
+        if valeur == ('5' or '13' or '21' or '29'):
+            points =10
+        if valeur == ('6' or '14' or '22' or '30'):
+            points =14
+        if valeur == ('7' or '15' or '23' or '31'):
+            points = 0
+        if valeur == ('8' or '16' or '24' or '32'):
+            points =0
+    else:
+        if valeur == ('1' or '9' or '17' or '25'):
+            points =11
+        if valeur == ('2' or '10' or '18' or '26'):
+            points =4
+        if valeur == ('3' or '11' or '19' or '27'):
+            points=3
+        if valeur == ('4' or '12' or '20' or '28'):
+            points =2
+        if valeur == ('5' or '13' or '21' or '29'):
+            points =10
+        if valeur == ('6' or '14' or '22' or '30'):
+            points =0
+        if valeur == ('7' or '15' or '23' or '31'):
+            points = 0
+        if valeur == ('8' or '16' or '24' or '32'):
+            points =0
+    return points
 
-
-    for value in range(1, 33):
-        cards.append(value)

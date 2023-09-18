@@ -14,8 +14,6 @@ def init_game():
         (mainJ1,mainJ2,cache1,cache2) : Les mains des joueurs et les cartes cachés\n
         tuple(list,list,list,list)
     """
-    
-    init_game()
 
     card_file ='static/cards/cards.csv'
 

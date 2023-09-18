@@ -1,12 +1,21 @@
-import csv, random, ast
+import csv, random, ast, copy
 from enum import IntEnum
 
 def init_game():
+    """Initialise une nouvelle partie :
+    - crée un dictionnaire pour chaque carte
+    - crée les listes de cartes des différentes mains des joueurs
+    
+    Format des cartes:
+        {'valeur':__valeur_de_1_à_32__,'image':"__filename.png__"}
+        valeur : int
+        image : str
+    Returns:
+        (mainJ1,mainJ2,cache1,cache2) : Les mains des joueurs et les cartes cachés\n
+        tuple(list,list,list,list)
     """
-    Initialise une nouvelle partie
-
-    :return mainJ1,mainJ2,cache1,cache2 (tuple) : Les mains des joueurs et les cartes cachés
-    """
+    
+    init_game()
 
     card_file ='static/cards/cards.csv'
 
@@ -28,29 +37,41 @@ def init_game():
     return mainJ1,mainJ2,cacheJ1,cacheJ2
 
 def checkBelote(main):
-    """ donneIMG = (mainJ1_IMG, cacheJ1_IMG,tapis1,tapis2,cacheJ2_IMG,mainJ2_IMG)
+    """
     Vérifie si le joueur détient une belote dans sa main
     """
 
-def cardPlayed(tour,mainJoueur,cacheJoueur,jeu,carte_jouee,indice_carte):
-    """
+def cardPlayed(tour,mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_jouee:int,indice_carte:int):
+    """Joue la carte sélectionné par le joueur, la déplace sur le tapis et retourne la carte face cachée
+
+    Args:
+        tour (int): _description_
+        mainJoueur (list): liste des cartes de la main du joueur
+        cacheJoueur (list): liste des cartes face cachées du joueur
+        tapis_joueur (list): Liste contenant les carte joué par ce joueur pour ce pli
+        carte_jouee (int): valeur de la carte jouée (de 1 à 32)
+        indice_carte (int): Indice de position de la carte dans la main
     """
     if type(carte_jouee) != int:
         raise TypeError(f"carte_jouee doit être un int pas {type(carte_jouee)}")
 
-    jeu[indice_carte-1] = mainJoueur[indice_carte-1]
-    mainJoueur[indice_carte-1] = cacheJoueur[indice_carte-1]
-    cacheJoueur[indice_carte-1] = 'carte_0.png'
-
+    tapis_joueur[indice_carte-1] = copy.deepcopy(mainJoueur[indice_carte-1])
+    mainJoueur[indice_carte-1] = copy.deepcopy(cacheJoueur[indice_carte-1])
+    cacheJoueur[indice_carte-1]['image'] = 'carte_0.png'
 
 
 def distribCards():
-    """
-    Crée une liste des valeurs des cartes de 1 à 32
-    Mélange et distribue les cartes aux joueurs
+    """Distribution des cartes:
+    - Crée une liste des valeurs des cartes de 1 à 32
+    - Mélange et distribue les cartes dans des listes pour les joueurs
     
+    Format des listes:
+        [int,int,int,int,int,int,int,int]\n
+        (int =< 32)
     
-    :return (tuple): 4 listes main_J1, main_J2, cacheJ1, cacheJ2
+    Returns:
+        (main_J1, main_J2, cacheJ1, cacheJ2)\n
+        tuple(list,list,list,list)
     """
     cards = []
     for value in range(1, 33):
@@ -81,11 +102,14 @@ def distribCards():
     return vis1,vis2,cache1,cache2
 
 def getCardValue(fic,img_name):
-    """
-    Renvoi la valeur de la carte en fonction du filename de l'image
-    :param str fic: fichier .csv contenant les valeurs des cartes et les noms des images
-    :param string img_name: Nom du fichier img de la carte recherchée
-    :return str valeur
+    """Renvoi la valeur de la carte en fonction du filename de l'image
+
+    Args:
+        fic (str): fichier .csv contenant les valeurs des cartes et les noms des images
+        img_name (str): Nom du fichier img de la carte recherchée
+
+    Returns:
+        str: valeur de la carte ('1' à '32')
     """
     with open(fic, 'r') as fichier:
         cardDict = csv.DictReader(fichier, delimiter=',')
@@ -96,11 +120,14 @@ def getCardValue(fic,img_name):
     return valeur
 
 def getCardImg(fic: str, valeur: str):
-    """
-    Renvoi le filename de l'image en fonction de la valeur de la carte
-    :param str fic: fichier .csv contenant les valeurs des cartes et les noms des images
-    :param int valeur: valeur de la carte recherchée
-    :return str imgName
+    """Renvoit le filename de l'image en fonction de la valeur de la carte
+    
+    Args:
+        fic (str): fichier .csv contenant les valeurs des cartes et les noms des images
+        valeur (int): valeur de la carte recherchée
+    
+    Returns:
+        imgName (str) : nom du fichier de l'image correspondant à la carte
     """
     with open(fic, 'r') as fichier:
         cardDict = csv.DictReader(fichier, delimiter=',')
@@ -111,10 +138,13 @@ def getCardImg(fic: str, valeur: str):
     return imgName
 
 def getCardColor(fic: str,valeur: str):
-    """
-    Renvoi la couleur d'une carte en fonction de sa valeur
-    :param valeur (str) : Utilise la valeur de la carte pour rechercher la couleur (doit être convertie en str)
-    :return couleur (str): Renvoit la couleur de la carte entrée
+    """Renvoi la couleur d'une carte en fonction de sa valeur
+    
+    Args:
+        valeur (str) : Utilise la valeur de la carte pour rechercher la couleur
+    
+    Returns:
+        couleur (str): Renvoit la couleur de la carte entrée
     """
     with open(fic, 'r') as fichier:
         cardDict = csv.DictReader(fichier, delimiter=',')
@@ -126,16 +156,16 @@ def getCardColor(fic: str,valeur: str):
 
 
 def startingPlayer():
-    """
-    Determine le joueur commençant la partie
-    :return int : Renvoit le numéro du joueur commençant la partie
+    """Determine le joueur commençant la partie
+    
+    Returns:
+        joueur (int) : Renvoit le numéro du joueur commençant la partie (0,1)
     """
     joueur = random.randint(0,1)
     return joueur
 
 def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,scores : int,nb_pli: int):
-    """
-    Sauvegarde les données de la parties en cours dans un fichier gameData
+    """Sauvegarde les données de la parties en cours dans un fichier gameData
     """
     save_file = open(save_fic,'w')
     save_data = [joueur,atout,mainJ1,mainJ2,scores,nb_pli]

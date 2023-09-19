@@ -57,6 +57,9 @@ def cardPlayed(tour,mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_j
     mainJoueur[indice_carte-1] = copy.deepcopy(cacheJoueur[indice_carte-1])
     cacheJoueur[indice_carte-1]['image'] = 'carte_0.png'
 
+def compareCards(cardJ1,cardJ2,atout):
+    
+
 
 def distribCards():
     """Distribution des cartes:

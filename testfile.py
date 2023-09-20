@@ -32,7 +32,7 @@ st_pl=fonctions.startingPlayer()
 
 #print(fonctions.loadGame('gameData'))
 
-print(donne[0][2])
+print(fonctions.cards_points(fic,'Carreau', '29'))
 
 #print(fonctions.getCardValue(fic,mainJ1[2]))
 

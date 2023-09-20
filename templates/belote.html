@@ -3,7 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Belote - Tour {{tour}}</title>
+  <title>Belote - Joueur {{joueur +1}}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -19,7 +19,7 @@
 
   <div class="container">
 
-    <table class="text-center table table-bordered">
+    <table class="text-center table table-bordered success">
       <thead>
         <tr>
           <th scope="col">Joueur 1</th>
@@ -50,8 +50,7 @@
           {%endfor%}
           {%endif%}
 
-          <button type="submit" class="btn btn-primary">
-            <i class="fa-solid fa-plus">Nouvelle Partie</i></button>
+          <a href="/initGame"><button class="btn btn-primary">Nouvelle partie</button></a>
 
         </tr>
       </thead>
@@ -59,7 +58,7 @@
 
         {%for row in donne%}
         {%if (loop.index == 2) or (loop.index == 5) %}
-        <tr scope="row" class="pt-3">
+        <tr scope="row" class="pt-3 table-success">
           {%for card in row%}
           <td><img src="static/cards/{{ card['image']}}" class="" alt=""></td>
           {%endfor%}
@@ -67,14 +66,14 @@
         {%elif (loop.index == 3) or (loop.index == 4) %}
         <tr scope="row" class="pt-3">
           {%for card in row%}
-          <td><img src="static/cards/{{ card['image']}}" class="" alt=""></td>
+          <td colspan="8"><img src="static/cards/{{ card['image']}}" class="" alt=""></td>
           {%endfor%}
         </tr>
         {%elif (loop.index == 1)%}
         <tr scope="row" class="pt-3">
           {%for card in row%}
           <td>
-            {%if tour == 0%}
+            {%if joueur == 0%}
             <a href="j1/{{loop.index}}">
               {%endif%}
               <img src="static/cards/{{ card['image'] }}" class="" alt="">
@@ -87,7 +86,7 @@
         <tr scope="row" class="pt-3">
           {%for card in row%}
           <td>
-            {%if tour==1%}
+            {%if joueur==1%}
             <a href="j2/{{loop.index}}">
               {%endif%}
               <img src="static/cards/{{ card['image'] }}" class="" alt="">

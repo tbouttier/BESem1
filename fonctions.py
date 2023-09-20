@@ -1,6 +1,9 @@
 import csv, random, ast, copy
 from enum import IntEnum
 
+card_file ='static/cards/cards.csv'
+
+
 def init_game():
     """Initialise une nouvelle partie :
     - crée un dictionnaire pour chaque carte
@@ -24,13 +27,13 @@ def init_game():
     cacheJ2 = []
 
     for card in donne[0]:
-        mainJ1.append({'valeur':card, 'image':getCardImg(card_file, str(card))})
+        mainJ1.append({'valeur':card, 'image':getCardImg(card_file, str(card)), 'figure':getCardFigure(card_file,str(card))})
     for card in donne[1]:
-        mainJ2.append(({'valeur':card, 'image':getCardImg(card_file, str(card))}))
+        mainJ2.append({'valeur':card, 'image':getCardImg(card_file, str(card)), 'figure':getCardFigure(card_file,str(card))})
     for card in donne[2]:
-        cacheJ1.append({'valeur':card, 'image':getCardImg(card_file, str(card))})
+        cacheJ1.append({'valeur':card, 'image':'dos.jpg', 'figure':getCardFigure(card_file,str(card))})
     for card in donne[3]:
-        cacheJ2.append({'valeur':card, 'image':getCardImg(card_file, str(card))})
+        cacheJ2.append({'valeur':card, 'image':'dos.jpg', 'figure':getCardFigure(card_file,str(card))})
 
     return mainJ1,mainJ2,cacheJ1,cacheJ2
 
@@ -39,7 +42,7 @@ def checkBelote(main):
     Vérifie si le joueur détient une belote dans sa main
     """
 
-def cardPlayed(tour,mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_jouee:int,indice_carte:int):
+def cardPlayed(mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_jouee:int,indice_carte:int):
     """Joue la carte sélectionné par le joueur, la déplace sur le tapis et retourne la carte face cachée
 
     Args:
@@ -53,14 +56,22 @@ def cardPlayed(tour,mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_j
     if type(carte_jouee) != int:
         raise TypeError(f"carte_jouee doit être un int pas {type(carte_jouee)}")
 
-    tapis_joueur[indice_carte-1] = copy.deepcopy(mainJoueur[indice_carte-1])
+    tapis_joueur[0] = copy.deepcopy(mainJoueur[indice_carte-1])
     mainJoueur[indice_carte-1] = copy.deepcopy(cacheJoueur[indice_carte-1])
+    mainJoueur[indice_carte-1]['image'] = getCardImg(card_file,str(mainJoueur[indice_carte-1]['valeur']))
     cacheJoueur[indice_carte-1]['image'] = 'carte_0.png'
+    cacheJoueur[indice_carte-1]['valeur'] = None
+
 
 def compareCards(cardJ1,cardJ2,atout):
+    """Compare les cartes jouées pour déterminer le gagnant du pli
+
+    Args:
+        cardJ1 (_type_):
+        cardJ2 (_type_):
+        atout (str): 
+    """
     
-
-
 def distribCards():
     """Distribution des cartes:
     - Crée une liste des valeurs des cartes de 1 à 32
@@ -102,6 +113,8 @@ def distribCards():
 
     return vis1,vis2,cache1,cache2
 
+#TODO imgName referenced before assignement pour la 2eme carte joue
+
 def getCardValue(fic,img_name):
     """Renvoi la valeur de la carte en fonction du filename de l'image
 
@@ -112,6 +125,10 @@ def getCardValue(fic,img_name):
     Returns:
         str: valeur de la carte ('1' à '32')
     """
+    if type(img_name) != str:
+        valeur = None
+        return valeur
+
     with open(fic, 'r') as fichier:
         cardDict = csv.DictReader(fichier, delimiter=',')
         for card in cardDict:
@@ -119,6 +136,29 @@ def getCardValue(fic,img_name):
                 valeur = card.get('Valeur')
 
     return valeur
+
+def getCardFigure(fic,valeur):
+    """Renvoit la figure de la carte en fonction de sa "valeur"
+
+    Args :
+        fic (str): fichier .csv contenant les valeurs des cartes et les noms des images
+        valeur (int): valeur de la carte recherchée
+
+    Returns :
+        figure (str): figure de la carte ('As','Roi','Dame','Valet','10' ...)
+    """
+    if type(valeur) != str:
+        figure = None
+        return figure
+
+    with open(fic, 'r') as fichier:
+        cardDict = csv.DictReader(fichier, delimiter=',')
+        for card in cardDict:
+            if card['Valeur'] == valeur:
+                figure: str = card.get('Figure')
+    
+    return figure
+
 
 def getCardImg(fic: str, valeur: str):
     """Renvoit le filename de l'image en fonction de la valeur de la carte
@@ -130,6 +170,10 @@ def getCardImg(fic: str, valeur: str):
     Returns:
         imgName (str) : nom du fichier de l'image correspondant à la carte
     """
+    if type(valeur) != str:
+        image = None
+        return image
+    
     with open(fic, 'r') as fichier:
         cardDict = csv.DictReader(fichier, delimiter=',')
         for card in cardDict:
@@ -155,7 +199,6 @@ def getCardColor(fic: str,valeur: str):
 
     return couleur
 
-
 def startingPlayer():
     """Determine le joueur commençant la partie
     
@@ -178,42 +221,45 @@ def loadGame(save_fic):
     game_data = ast.literal_eval(load_file.read())
     return game_data
 
+
 def cards_points(fic, atout, valeur):
+    figure = getCardFigure(fic, valeur)
     Couleur=getCardColor(fic, valeur)
     print(Couleur)
     if Couleur == atout :
-        if valeur == ('1' or '9' or '17' or '25'):
+        if figure == 'As':
             points =11
-        if valeur == ('2' or '10' or '18' or '26'):
+        if figure == 'Roi':
             points =4
-        if valeur == ('3' or '11' or '19' or '27'):
+        if figure == 'Dame':
             points=3
-        if valeur == ('4' or '12' or '20' or '28'):
+        if figure == 'Valet':
             points =20
-        if valeur == ('5' or '13' or '21' or '29'):
+        if figure == '10':
             points =10
-        if valeur == ('6' or '14' or '22' or '30'):
+        if figure == '9':
             points =14
-        if valeur == ('7' or '15' or '23' or '31'):
+        if figure == '8':
             points = 0
-        if valeur == ('8' or '16' or '24' or '32'):
+        if figure == '7':
             points =0
     else:
-        if valeur == ('1' or '9' or '17' or '25'):
+        if figure == 'As':
             points =11
-        if valeur == ('2' or '10' or '18' or '26'):
+        if figure == 'Roi':
             points =4
-        if valeur == ('3' or '11' or '19' or '27'):
+        if figure == 'Dame':
             points=3
-        if valeur == ('4' or '12' or '20' or '28'):
+        if figure == 'Valet':
             points =2
-        if valeur == ('5' or '13' or '21' or '29'):
+        if figure == '10':
             points =10
-        if valeur == ('6' or '14' or '22' or '30'):
-            points =0
-        if valeur == ('7' or '15' or '23' or '31'):
+        if figure == '9':
+            points =14
+        if figure == '8':
             points = 0
-        if valeur == ('8' or '16' or '24' or '32'):
+        if figure == '7':
             points =0
+    
     return points
 

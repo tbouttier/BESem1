@@ -18,7 +18,7 @@ def index():
 def game():
     global joueur
     fonctions.checkTapis(donne[2][0],donne[3][0],atout,score,joueur,pli)
-    return render_template('game.html', donne = donne, joueur = joueur[0], atout = atout,score=score,pli = pli)
+    return render_template('game.html', donne = donne, joueur = joueur[0], atout = atout,score=score,pli = pli[0])
 
 @app.route('/j1/<card>')
 def jeu_j1(card):

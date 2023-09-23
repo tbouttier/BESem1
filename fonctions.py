@@ -5,7 +5,9 @@ card_file ='static/cards/cards.csv'
 """--------- TODO LIST ----------
     - Régler les problème de confusion str int pour les valeurs (même moi je sais plus qui est quoi ...)
     - Listes mutables (see below)
-    - 
+    - Update Sauvegarder/Charger une partie
+    - Belote Re-belote
+    - 10 DER
 """
 
 def init_game():

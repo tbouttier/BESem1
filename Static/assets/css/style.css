@@ -470,6 +470,7 @@ table tr td, table tr th{
 }
 
 #hero:before {
+  z-index: 1;
   content: "";
   /*background: rgba(0, 0, 0, 0.5);*/
   position: absolute;
@@ -480,6 +481,7 @@ table tr td, table tr th{
 }
 
 #hero .container {
+  z-index: 1000;
   padding-top: 50px;
 }
 

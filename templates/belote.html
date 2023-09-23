@@ -13,122 +13,128 @@
 
 <body>
 
-  {% include ('header.html') %}
-
   <!-- ======= Tapis de cartes (tableau) ======= -->
+  <div class="conainer text-center">
+    <div class="row">
+      <div class="col">
+        <p>Scores : {{score}}</p>
+      </div>
+    </div>
+  </div>
 
-  <div class="container">
-
-    <table class="text-center table table-bordered success">
-      <thead>
-        <tr>
-          <th scope="col">Joueur 1</th>
-
-          {%if atout == "Pique" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Pique.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%elif atout == "Carreau" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Carreau.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%elif atout == "Coeur" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Coeur.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%elif atout == "Trefle" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Trefle.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%endif%}
-
-          <a href="/initGame"><button class="btn btn-primary">Nouvelle partie</button></a>
-
-        </tr>
-      </thead>
-      <tbody>
-
-        {%for row in donne%}
-        {%if (loop.index == 2) or (loop.index == 5) %}
-        <tr scope="row" class="pt-3 table-success">
-          {%for card in row%}
-          <td><img src="static/cards/{{ card['image']}}" class="" alt=""></td>
-          {%endfor%}
-        </tr>
-        {%elif (loop.index == 3) or (loop.index == 4) %}
-        <tr scope="row" class="pt-3">
-          {%for card in row%}
-          <td colspan="8"><img src="static/cards/{{ card['image']}}" class="" alt=""></td>
-          {%endfor%}
-        </tr>
-        {%elif (loop.index == 1)%}
-        <tr scope="row" class="pt-3">
-          {%for card in row%}
-          <td>
-            {%if joueur == 0%}
-            <a href="j1/{{loop.index}}">
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col"><a href="/initGame"><button class="btn btn-primary">Nouvelle partie</button></a></div>
+      <div class="col">
+        <table id="plateau" class="text-center">
+          <thead>
+            <tr>
+              <th scope="col">Joueur 1</th>
+              {%if atout == "Pique" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Pique.png" class="w-50">
+              </td>
+              {%endfor%}
+              {%elif atout == "Carreau" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Carreau.png" class="w-50">
+              </td>
+              {%endfor%}
+              {%elif atout == "Coeur" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Coeur.png" class="w-50">
+              </td>
+              {%endfor%}
+              {%elif atout == "Trefle" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Trefle.png" class="w-50">
+              </td>
+              {%endfor%}
               {%endif%}
-              <img src="static/cards/{{ card['image'] }}" class="" alt="">
-            </a>
-          </td>
-          </a>
-          {%endfor%}
-        </tr>
-        {%elif loop.index==6%}
-        <tr scope="row" class="pt-3">
-          {%for card in row%}
-          <td>
-            {%if joueur==1%}
-            <a href="j2/{{loop.index}}">
+            </tr>
+          </thead>
+          <tbody>
+
+            {%for row in donne%}
+            {%if (loop.index == 2) or (loop.index == 5) %}
+            <tr scope="row" class="pt-3 table-success">
+              {%for card in row%}
+              <td><img src="static/cards/{{ card['image']}}" class="" alt=""></td>
+              {%endfor%}
+            </tr>
+            {%elif (loop.index == 3) or (loop.index == 4) %}
+            <tr scope="row" class="pt-3">
+              {%for card in row%}
+              <td colspan="8"><img src="static/cards/{{ card['image']}}" class="" alt=""></td>
+              {%endfor%}
+            </tr>
+            {%elif (loop.index == 1)%}
+            <tr scope="row" class="pt-3">
+              {%for card in row%}
+              <td>
+                {%if joueur == 0%}
+                <a href="j1/{{loop.index}}">
+                  {%endif%}
+                  <img src="static/cards/{{ card['image'] }}" class="" alt="">
+                </a>
+              </td>
+              </a>
+              {%endfor%}
+            </tr>
+            {%elif loop.index==6%}
+            <tr scope="row" class="pt-3">
+              {%for card in row%}
+              <td>
+                {%if joueur==1%}
+                <a href="j2/{{loop.index}}">
+                  {%endif%}
+                  <img src="static/cards/{{ card['image'] }}" class="" alt="">
+                </a>
+              </td>
+              </a>
+              {%endfor%}
+            </tr>
+            {%endif%}
+            {%endfor%}
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <th scope="col">Joueur 2</th>
+
+              {%if atout == "Pique" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Pique.png" class="w-50">
+              </td>
+              {%endfor%}
+              {%elif atout == "Carreau" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Carreau.png" class="w-50">
+              </td>
+              {%endfor%}
+              {%elif atout == "Coeur" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Coeur.png" class="w-50">
+              </td>
+              {%endfor%}
+              {%elif atout == "Trefle" %}
+              {%for i in range(7)%}
+              <td>
+                <img src="static/cards/Trefle.png" class="w-50">
+              </td>
+              {%endfor%}
               {%endif%}
-              <img src="static/cards/{{ card['image'] }}" class="" alt="">
-            </a>
-          </td>
-          </a>
-          {%endfor%}
-        </tr>
-        {%endif%}
-        {%endfor%}
-      </tbody>
-
-      <tfoot>
-        <tr>
-          <th scope="col">Joueur 2</th>
-
-          {%if atout == "Pique" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Pique.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%elif atout == "Carreau" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Carreau.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%elif atout == "Coeur" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Coeur.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%elif atout == "Trefle" %}
-          {%for i in range(7)%}
-          <td>
-            <img src="static/cards/Trefle.png" class="w-50">
-          </td>
-          {%endfor%}
-          {%endif%}
-      </tfoot>
-    </table>
+          </tfoot>
+        </table>
+      </div>
+      <div class="col"></div>
+    </div>
   </div>
 </body>

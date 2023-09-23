@@ -1,8 +1,12 @@
 import csv, random, ast, copy
-from enum import IntEnum
 
 card_file ='static/cards/cards.csv'
 
+"""--------- TODO LIST ----------
+    - Régler les problème de confusion str int pour les valeurs (même moi je sais plus qui est quoi ...)
+    - Listes mutables (see below)
+    - 
+"""
 
 def init_game():
     """Initialise une nouvelle partie :
@@ -59,18 +63,67 @@ def cardPlayed(mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_jouee:
     tapis_joueur[0] = copy.deepcopy(mainJoueur[indice_carte-1])
     mainJoueur[indice_carte-1] = copy.deepcopy(cacheJoueur[indice_carte-1])
     mainJoueur[indice_carte-1]['image'] = getCardImg(card_file,str(mainJoueur[indice_carte-1]['valeur']))
-    cacheJoueur[indice_carte-1]['image'] = 'carte_0.png'
+    cacheJoueur[indice_carte-1]['image'] = None
     cacheJoueur[indice_carte-1]['valeur'] = None
+    cacheJoueur[indice_carte-1]['figure'] = None
+    #cacheJoueur[indice_carte-1]['valeur'] = None
 
+"""TODO Concentrer les listes de mutables en une seule liste (merci la propreté)
+    Ouais je parle de vous joueur, score et pli 👀
+"""
+
+def checkTapis(tapisJ1:dict,tapisJ2:dict,atout,score,joueur:list,pli):
+    mem_joueur = joueur[0]
+    cardJ1 = tapisJ1.get('valeur')
+    cardJ2 = tapisJ2.get('valeur')
+    if (cardJ1 != None and cardJ2 != None):
+        pli[0]+=1
+        gagnant,points = compareCards(cardJ1,cardJ2,atout)
+        if gagnant != None:
+            score[gagnant]+=points
+            joueur[0] = gagnant
+
+        tapisJ1.clear()
+        tapisJ2.clear()
+        
+        return gagnant,score,joueur
+        
+        
+    
 
 def compareCards(cardJ1,cardJ2,atout):
     """Compare les cartes jouées pour déterminer le gagnant du pli
 
     Args:
-        cardJ1 (_type_):
-        cardJ2 (_type_):
-        atout (str): 
+        cardJ1 (_type_): valeur de la carte du pli du joueur 1
+        cardJ2 (_type_): valeur de la carte du pli du joueur 2
+        atout (str): atout de la partie
+    Returns:
+        tuple[None | int, int] : tuple contenant l'indice du gagnant(0,1) et les point marqués
+            gagnant = None si égalité
     """
+    point_cardJ1 = cards_points(card_file, atout,cardJ1)
+    point_cardJ2 = cards_points(card_file, atout,cardJ2)
+    
+    if point_cardJ1>point_cardJ2:
+        gagnant = 0
+        points = point_cardJ1
+    elif point_cardJ1<point_cardJ2:
+        gagnant = 1
+        points = point_cardJ2
+    elif point_cardJ1 == point_cardJ2:
+        if getCardColor(card_file,str(cardJ1)) == atout:
+            gagnant = 0
+            points = point_cardJ1
+        elif getCardColor(card_file,str(cardJ2)) == atout:
+            gagnant = 1
+            points = point_cardJ2
+        else:
+            gagnant = None
+            points = 0  
+        
+    return gagnant,points
+        
     
 def distribCards():
     """Distribution des cartes:
@@ -113,8 +166,6 @@ def distribCards():
 
     return vis1,vis2,cache1,cache2
 
-#TODO imgName referenced before assignement pour la 2eme carte joue
-
 def getCardValue(fic,img_name):
     """Renvoi la valeur de la carte en fonction du filename de l'image
 
@@ -142,7 +193,7 @@ def getCardFigure(fic,valeur):
 
     Args :
         fic (str): fichier .csv contenant les valeurs des cartes et les noms des images
-        valeur (int): valeur de la carte recherchée
+        valeur (int): valeur de la carte (1 à 32)
 
     Returns :
         figure (str): figure de la carte ('As','Roi','Dame','Valet','10' ...)
@@ -159,18 +210,17 @@ def getCardFigure(fic,valeur):
     
     return figure
 
-
 def getCardImg(fic: str, valeur: str):
     """Renvoit le filename de l'image en fonction de la valeur de la carte
     
     Args:
         fic (str): fichier .csv contenant les valeurs des cartes et les noms des images
-        valeur (int): valeur de la carte recherchée
+        valeur (int): valeur de la carte (1 à 32)
     
     Returns:
         imgName (str) : nom du fichier de l'image correspondant à la carte
     """
-    if type(valeur) != str:
+    if valeur == str(None):
         image = None
         return image
     
@@ -186,7 +236,7 @@ def getCardColor(fic: str,valeur: str):
     """Renvoi la couleur d'une carte en fonction de sa valeur
     
     Args:
-        valeur (str) : Utilise la valeur de la carte pour rechercher la couleur
+        valeur (str) : Valeur de la carte (1 à 32)
     
     Returns:
         couleur (str): Renvoit la couleur de la carte entrée
@@ -221,11 +271,20 @@ def loadGame(save_fic):
     game_data = ast.literal_eval(load_file.read())
     return game_data
 
+def cards_points(fic, atout:str, valeur:int):
+    """Détermine les points de la carte selon l'atout
 
-def cards_points(fic, atout, valeur):
-    figure = getCardFigure(fic, valeur)
-    Couleur=getCardColor(fic, valeur)
-    print(Couleur)
+    Args:
+        fic (str): fichier .csv contenant les valeurs des cartes et les noms des images
+        atout (str): atout de la partie
+        valeur (int): valeur de la carte selon (1 à 32)
+
+    Returns:
+        int: points de la carte
+    """
+    
+    figure = getCardFigure(fic, str(valeur))
+    Couleur=getCardColor(fic, str(valeur))
     if Couleur == atout :
         if figure == 'As':
             points =11
@@ -255,7 +314,7 @@ def cards_points(fic, atout, valeur):
         if figure == '10':
             points =10
         if figure == '9':
-            points =14
+            points = 0
         if figure == '8':
             points = 0
         if figure == '7':

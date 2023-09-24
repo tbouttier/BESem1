@@ -31,8 +31,11 @@ st_pl=fonctions.startingPlayer()
 #fonctions.saveGame('gameData',None,atout,mainJ1,mainJ2,0,1)
 
 #print(fonctions.loadGame('gameData'))
+print(fonctions.cards_points(fic,'Pique',28))
+print(fonctions.cards_points(fic,'Pique',10))
 
-print(donne[0][2])
+
+print(fonctions.compareCards(28,10,'Pique'))
 
 #print(fonctions.getCardValue(fic,mainJ1[2]))
 

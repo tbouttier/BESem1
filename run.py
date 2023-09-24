@@ -3,6 +3,10 @@ from flask import Flask, render_template, request, flash, redirect, send_file
 from werkzeug.utils import secure_filename
 import fonctions
 
+"""
+Note : joueur et pli sont des listes à 1 seul élément (int) afin de contourner le problème des entiers immutable dans les fonctions 
+"""
+
 UPLOAD_FOLDER = 'saves/'
 ALLOWED_EXTENSIONS = {'bel'}
 
@@ -19,6 +23,30 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def index():
 
     return render_template('testindex.html')
+
+@app.route('/initGame')
+def gameStart():
+    
+    #Définition des variables globales
+    global mains,donne,atout,joueur,tapis1,tapis2,score,pli
+    
+    pli = [0]
+    joueur=[fonctions.startingPlayer()]
+    score = [0,0]
+    tapis1 = [{'valeur':None, 'image':""}]
+    tapis2 = [{'valeur':None, 'image':""}]
+
+    #Initialisation du jeu de carte
+    mains = fonctions.init_game()
+    donne = (mains[0],mains[2],tapis1,tapis2,mains[3],mains[1])
+
+    if joueur[0] == 0:
+        atout = fonctions.getCardColor(card_file,str(donne[0][-1]['valeur']))
+    else:
+        atout = fonctions.getCardColor(card_file,str(donne[-1][-1]['valeur']))
+        
+    return redirect('/game')
+
 
 @app.route('/game')
 def game():
@@ -69,29 +97,6 @@ def loadGame():
             return redirect('/game')
     
     else: return render_template('load.html')
-   
-@app.route('/initGame')
-def gameStart():
-    
-    #Définition des variables globales
-    global mains,donne,atout,joueur,tapis1,tapis2,score,pli
-    
-    pli = [0]
-    joueur=[fonctions.startingPlayer()]
-    score = [0,0]
-    tapis1 = [{'valeur':None, 'image':""}]
-    tapis2 = [{'valeur':None, 'image':""}]
-
-    #Initialisation du jeu de carte
-    mains = fonctions.init_game()
-    donne = (mains[0],mains[2],tapis1,tapis2,mains[3],mains[1])
-
-    if joueur[0] == 0:
-        atout = fonctions.getCardColor(card_file,str(donne[0][-1]['valeur']))
-    else:
-        atout = fonctions.getCardColor(card_file,str(donne[-1][-1]['valeur']))
-        
-    return redirect('/game')
 
 @app.route('/download')
 def Download_Save():

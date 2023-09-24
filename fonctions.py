@@ -2,13 +2,6 @@ import csv, random, ast, copy
 
 card_file ='static/cards/cards.csv'
 
-"""--------- TODO LIST ----------
-    - Régler les problème de confusion str int pour les valeurs (même moi je sais plus qui est quoi ...)
-    - Listes mutables (see below)
-    - Update Sauvegarder/Charger une partie
-    - Belote Re-belote
-    - 10 DER
-"""
 
 def init_game():
     """Initialise une nouvelle partie :
@@ -19,6 +12,7 @@ def init_game():
         {'valeur':__valeur_de_1_à_32__,'image':"__filename.png__"}
         valeur : int
         image : str
+        
     Returns:
         (mainJ1,mainJ2,cache1,cache2) : Les mains des joueurs et les cartes cachés\n
         tuple(list,list,list,list)
@@ -43,12 +37,8 @@ def init_game():
 
     return mainJ1,mainJ2,cacheJ1,cacheJ2
 
-def checkBelote(main):
-    """
-    Vérifie si le joueur détient une belote dans sa main
-    """
 
-def cardPlayed(mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_jouee:int,indice_carte:int):
+def cardPlayed(mainJoueur : list, cacheJoueur:list, tapis_joueur:list, carte_jouee:int, indice_carte:int):
     """Joue la carte sélectionné par le joueur, la déplace sur le tapis et retourne la carte face cachée
 
     Args:
@@ -68,14 +58,23 @@ def cardPlayed(mainJoueur : list,cacheJoueur:list,tapis_joueur:list,carte_jouee:
     cacheJoueur[indice_carte-1]['image'] = None
     cacheJoueur[indice_carte-1]['valeur'] = None
     cacheJoueur[indice_carte-1]['figure'] = None
-    #cacheJoueur[indice_carte-1]['valeur'] = None
 
-"""TODO Concentrer les listes de mutables en une seule liste (merci la propreté)
-    Ouais je parle de vous joueur, score et pli 👀
-"""
 
-def checkTapis(tapisJ1:dict,tapisJ2:dict,atout,score,joueur:list,pli):
-    mem_joueur = joueur[0]
+def checkTapis(tapisJ1:dict, tapisJ2:dict, atout:str, score:list, joueur:list, pli:list):
+    """érifie que les 2 joueurs aient joué le pli et retourne le gagnant et le score
+
+    Args:
+        tapisJ1 (dict): tapis côté joueur 1
+        tapisJ2 (dict): tapis côté joueur 2
+        atout (str): couleur d'atout de la partie
+        score (list): scores des joueurs
+        joueur (list): joueur ayant la main
+        pli (list): n° pli en cours
+
+    Returns:
+        tuple[gagnant,score,joueur]: gagnant du pli (0 ou 1), liste des scores, le joueur qui a la main
+    """
+    
     cardJ1 = tapisJ1.get('valeur')
     cardJ2 = tapisJ2.get('valeur')
     if (cardJ1 != None and cardJ2 != None):
@@ -85,6 +84,8 @@ def checkTapis(tapisJ1:dict,tapisJ2:dict,atout,score,joueur:list,pli):
             score[gagnant]+=points
             joueur[0] = gagnant
 
+        if pli[0] == 16: #10 de DER
+            score[gagnant]+=10
         tapisJ1.clear()
         tapisJ2.clear()
         
@@ -93,12 +94,12 @@ def checkTapis(tapisJ1:dict,tapisJ2:dict,atout,score,joueur:list,pli):
         
     
 
-def compareCards(cardJ1,cardJ2,atout):
+def compareCards(cardJ1:int,cardJ2:int,atout:str):
     """Compare les cartes jouées pour déterminer le gagnant du pli
 
     Args:
-        cardJ1 (_type_): valeur de la carte du pli du joueur 1
-        cardJ2 (_type_): valeur de la carte du pli du joueur 2
+        cardJ1 (int): valeur de la carte du pli du joueur 1
+        cardJ2 (int): valeur de la carte du pli du joueur 2
         atout (str): atout de la partie
     Returns:
         tuple[None | int, int] : tuple contenant l'indice du gagnant(0,1) et les point marqués
@@ -168,7 +169,7 @@ def distribCards():
 
     return vis1,vis2,cache1,cache2
 
-def getCardValue(fic,img_name):
+def getCardValue(fic:str,img_name:str):
     """Renvoi la valeur de la carte en fonction du filename de l'image
 
     Args:
@@ -178,7 +179,7 @@ def getCardValue(fic,img_name):
     Returns:
         str: valeur de la carte ('1' à '32')
     """
-    if type(img_name) != str:
+    if img_name == None:
         valeur = None
         return valeur
 
@@ -190,7 +191,7 @@ def getCardValue(fic,img_name):
 
     return valeur
 
-def getCardFigure(fic,valeur):
+def getCardFigure(fic:str, valeur:str):
     """Renvoit la figure de la carte en fonction de sa "valeur"
 
     Args :
@@ -200,7 +201,7 @@ def getCardFigure(fic,valeur):
     Returns :
         figure (str): figure de la carte ('As','Roi','Dame','Valet','10' ...)
     """
-    if type(valeur) != str:
+    if str(valeur) == None:
         figure = None
         return figure
 
@@ -208,7 +209,7 @@ def getCardFigure(fic,valeur):
         cardDict = csv.DictReader(fichier, delimiter=',')
         for card in cardDict:
             if card['Valeur'] == valeur:
-                figure: str = card.get('Figure')
+                figure = card.get('Figure')
     
     return figure
 
@@ -230,7 +231,7 @@ def getCardImg(fic: str, valeur: str):
         cardDict = csv.DictReader(fichier, delimiter=',')
         for card in cardDict:
             if card['Valeur'] == valeur:
-                imgName: str = card.get('file')
+                imgName = card.get('file')
 
     return imgName
 
@@ -247,7 +248,7 @@ def getCardColor(fic: str,valeur: str):
         cardDict = csv.DictReader(fichier, delimiter=',')
         for card in cardDict:
             if card['Valeur'] == valeur:
-                couleur: str = card.get('Couleur')
+                couleur = card.get('Couleur')
 
     return couleur
 
@@ -260,17 +261,34 @@ def startingPlayer():
     joueur = random.randint(0,1)
     return joueur
 
-def saveGame(save_fic: str,joueur: int,atout: str,mainJ1 : list,mainJ2: list,scores : int,nb_pli: int):
+def saveGame(save_fic: str, donne:tuple, pli:list, joueur:list ,atout:str, score:list):
     """Sauvegarde les données de la parties en cours dans un fichier gameData
+
+    Args:
+        save_fic (str): chemin d'enregistrement du fichier
+        donne (tuple): donne complète de la partie en cours
+        pli (list): n° du pli
+        joueur (list): joueur ayant la main
+        atout (str): atout de la partie
+        score (list): scores de la partie
     """
     save_file = open(save_fic,'w')
-    save_data = [joueur,atout,mainJ1,mainJ2,scores,nb_pli]
+    save_data = [donne, pli, joueur, atout, score]
     save_file.write(str(save_data))
     save_file.close()
 
 def loadGame(save_fic):
+    """Charge les données de la partie sauvegardée
+
+    Args:
+        save_fic (str): chemin du fichier de sauvegarde
+
+    Returns:
+        tuple: (donne, pli, joueur, atout)
+    """
     load_file = open(save_fic,'r')
     game_data = ast.literal_eval(load_file.read())
+       
     return game_data
 
 def cards_points(fic, atout:str, valeur:int):

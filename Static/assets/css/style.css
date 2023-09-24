@@ -651,6 +651,24 @@ table tr td, table tr th{
   }
 }
 
+.sub-btn{
+  background: #cda45e;
+  border: 0;
+  padding: 10px 35px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.form-file{
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+  background: #0c0b09;
+  border-color: #625b4b;
+  color: white;
+}
+
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
@@ -1557,9 +1575,6 @@ section {
   border-color: #cda45e;
 }
 
-.contact .php-email-form input {
-  height: 44px;
-}
 
 .contact .php-email-form textarea {
   padding: 10px 12px;

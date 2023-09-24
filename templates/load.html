@@ -43,15 +43,16 @@
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Belote à 2</a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="/">Belote à 2</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="/static/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
+
         </ul>
       </nav><!-- .navbar -->
-
+      <a href="/initGame" class="book-a-table-btn d-none d-lg-flex">Nouvelle partie</a>
 
 
     </div>
@@ -60,11 +61,23 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="index-hero d-flex align-items-center">
     <div class="container position-relative text-center" data-aos="zoom-in" data-aos-delay="100">
-      <div class="row">
-        <div class="col">
-          <div class="btns">
-            <a href="/initGame" class="btn-menu animated fadeInUp scrollto">Nouvelle partie</a>
-            <a href="/loadGame" class="btn-book animated fadeInUp scrollto">Charger la partie</a>
+      <div class="row justify-content-center">
+        <div class="col-md-auto contact">
+          <div class="form-group">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>{{messages[0]}} !</strong> <br> Veuillez utiliser un fichier .bel !
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {%endif%}
+            {%endwith%}
+            <form class="form" action="" method="post" enctype=multipart/form-data>
+              <h1 class="mb-5">Charger un partie</h1>
+              <input class="form-control" type="file" name="save" id="save" placeholder="" required>
+              <button class="sub-btn mt-2" type="submit">Charger</button>
+            </form>
+
           </div>
         </div>
       </div>

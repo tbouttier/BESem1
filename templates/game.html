@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Restaurantly Bootstrap Template - Index</title>
+  <title>Belote à 2 - Jeu</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -55,7 +55,9 @@
         </ul>
       </nav><!-- .navbar -->
       <a href="/initGame" class="book-a-table-btn d-none d-lg-flex">Nouvelle partie</a>
-      <a href="/loadGame" class="book-a-table-btn d-none d-lg-flex">Charger la partie précédente</a>
+      <a href="/loadGame" class="book-a-table-btn d-none d-lg-flex">Charger</a>
+      <a href="{{url_for('Download_Save')}}" class="book-a-table-btn d-none d-lg-flex">Sauvegarder</a>
+      
 
 
     </div>
@@ -67,6 +69,7 @@
       <div class="row">
         <div class="col"></div>
         <div class="col col-lg-auto">
+        {%if (pli < 16) %}
           <table  id="plateau"  class="table text-center">
             <thead>
               <tr>
@@ -173,7 +176,15 @@
                 {%endfor%}
                 {%endif%}
             </tfoot>
-          </table>  
+          </table> 
+          {%else%}
+          <div style="height: 77vh;">
+            <h1>Joueur 1 : {{score[0]}} pts</h1>
+            <h1>Joueur 2 : {{score[1]}} pts</h1>
+            <br>
+            <h1>Gagnant : Joueur {{ joueur + 1}}</h1>
+          </div>
+          {%endif%}
         </div>
         <div class="col"></div>
         </div>

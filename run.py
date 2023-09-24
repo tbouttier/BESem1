@@ -26,7 +26,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def index():
 
-    return render_template('testindex.html')
+    return render_template('index.html')
 
 @app.route('/initGame')
 def gameStart():
@@ -108,14 +108,7 @@ def Download_Save():
     PATH = 'saves/gameData.bel'
     return send_file(PATH, as_attachment=True)
 
-@app.route('/j2/<card>')
-def jeu_j2(card):
-    fonctions.cardPlayed(0,donne[5],donne[4],donne[3],donne[5][int(card)-1]['valeur'],int(card))
-    global tour
-    tour-=1
-    
-    return redirect('/game')
-    
+   
 
 if __name__=='__main__':
     app.secret_key = "teobubu"

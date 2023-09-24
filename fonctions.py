@@ -2,7 +2,6 @@ import csv, random, ast, copy
 
 card_file ='static/cards/cards.csv'
 
-
 def init_game():
     """Initialise une nouvelle partie :
     - crée un dictionnaire pour chaque carte
@@ -38,7 +37,9 @@ def init_game():
     return mainJ1,mainJ2,cacheJ1,cacheJ2
 
 
+
 def cardPlayed(mainJoueur : list, cacheJoueur:list, tapis_joueur:list, carte_jouee:int, indice_carte:int):
+
     """Joue la carte sélectionné par le joueur, la déplace sur le tapis et retourne la carte face cachée
 
     Args:
@@ -59,9 +60,8 @@ def cardPlayed(mainJoueur : list, cacheJoueur:list, tapis_joueur:list, carte_jou
     cacheJoueur[indice_carte-1]['valeur'] = None
     cacheJoueur[indice_carte-1]['figure'] = None
 
-
 def checkTapis(tapisJ1:dict, tapisJ2:dict, atout:str, score:list, joueur:list, pli:list):
-    """érifie que les 2 joueurs aient joué le pli et retourne le gagnant et le score
+    """Vérifie que les 2 joueurs aient joué le pli et retourne le gagnant et le score
 
     Args:
         tapisJ1 (dict): tapis côté joueur 1
@@ -91,8 +91,6 @@ def checkTapis(tapisJ1:dict, tapisJ2:dict, atout:str, score:list, joueur:list, p
         
         return gagnant,score,joueur
         
-        
-    
 
 def compareCards(cardJ1:int,cardJ2:int,atout:str):
     """Compare les cartes jouées pour déterminer le gagnant du pli
@@ -126,8 +124,7 @@ def compareCards(cardJ1:int,cardJ2:int,atout:str):
             points = 0  
         
     return gagnant,points
-        
-    
+
 def distribCards():
     """Distribution des cartes:
     - Crée une liste des valeurs des cartes de 1 à 32
@@ -169,7 +166,9 @@ def distribCards():
 
     return vis1,vis2,cache1,cache2
 
+
 def getCardValue(fic:str,img_name:str):
+
     """Renvoi la valeur de la carte en fonction du filename de l'image
 
     Args:
@@ -190,6 +189,7 @@ def getCardValue(fic:str,img_name:str):
                 valeur = card.get('Valeur')
 
     return valeur
+
 
 def getCardFigure(fic:str, valeur:str):
     """Renvoit la figure de la carte en fonction de sa "valeur"
@@ -218,6 +218,7 @@ def getCardImg(fic: str, valeur: str):
     
     Args:
         fic (str): fichier .csv contenant les valeurs des cartes et les noms des images
+
         valeur (int): valeur de la carte (1 à 32)
     
     Returns:
@@ -260,6 +261,7 @@ def startingPlayer():
     """
     joueur = random.randint(0,1)
     return joueur
+
 
 def saveGame(save_fic: str, donne:tuple, pli:list, joueur:list ,atout:str, score:list):
     """Sauvegarde les données de la parties en cours dans un fichier gameData

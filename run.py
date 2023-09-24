@@ -1,7 +1,10 @@
+
 import os
 from flask import Flask, render_template, request, flash, redirect, send_file
 from werkzeug.utils import secure_filename
+
 import fonctions
+
 
 """
 Note : joueur et pli sont des listes à 1 seul élément (int) afin de contourner le problème des entiers immutable dans les fonctions 
@@ -18,6 +21,7 @@ card_file = 'static/cards/cards.csv'
 
 app = Flask('__main__')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route('/')
 def index():
@@ -67,6 +71,7 @@ def jeu_j1(card):
 def jeu_j2(card):
     fonctions.cardPlayed(donne[5],donne[4],donne[3],donne[5][int(card)-1]['valeur'],int(card))
     joueur[0]-=1
+
     
     return redirect('/game')
 
@@ -102,6 +107,15 @@ def loadGame():
 def Download_Save():
     PATH = 'saves/gameData.bel'
     return send_file(PATH, as_attachment=True)
+
+@app.route('/j2/<card>')
+def jeu_j2(card):
+    fonctions.cardPlayed(0,donne[5],donne[4],donne[3],donne[5][int(card)-1]['valeur'],int(card))
+    global tour
+    tour-=1
+    
+    return redirect('/game')
+    
 
 if __name__=='__main__':
     app.secret_key = "teobubu"

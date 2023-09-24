@@ -58,7 +58,6 @@
             </tr>
           </thead>
           <tbody>
-
             {%for row in donne%}
             {%if (loop.index == 2) or (loop.index == 5) %}
             <tr scope="row" class="pt-3 table-success">
@@ -101,11 +100,9 @@
             {%endif%}
             {%endfor%}
           </tbody>
-
           <tfoot>
             <tr>
               <th scope="col">Joueur 2</th>
-
               {%if atout == "Pique" %}
               {%for i in range(7)%}
               <td>
